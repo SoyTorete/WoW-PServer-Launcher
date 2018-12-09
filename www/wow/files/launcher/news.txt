@@ -1,0 +1,108 @@
+﻿-= News PrepareToFight Server =-
+(Neuste zuerst)
+
+XX.12.18 - 0.0.9
+- Code Cleanup launcher
+- Launcher zeigt jetzt Anzahl
+online Spieler
+- Passwort sicherheit erhöt. Neuer Algorythmus
+- Server cleanup 
+- Worldserver neustart und backups
+- Website update
+
+
+03.11.18 - 0.0.8
+- Code Rewrite Launcher
+(Netzwerk und Methoden)
+- Bugfix Autologin 
+(Launcher erkennt nun wenn Spielprozess
+geladen hat)
+- Github release vorbereitungen
+- Server online check nun intern
+- Bugfix Launcher Updater
+
+01.11.18 - 0.0.7
+- Wieder viele Bugfixes
+- Admin Tools jetzt intern verfügbar
+- Bugtracker aktualisiert
+- Bugtracker Server update
+- Launcher UI Design erneuert
+- P2F Logo eingebaut
+- DevMode Funktionen eingebaut
+- Gameclient Downloader eingebaut
+- Cache Clear bevor Spielstart eingebaut
+- Settings aktualisiert
+
+31.10.18 - 0.0.6
+- Bugfixes im Launcher
+- Noch mehr bugfixes
+- Bugtracker in Launcher eingebaut
+- Mehr Einstellungen für den Launcher
+
+
+12.10.18 - 0.0.5
+- Launcher updates 
+- Design änderungen des launchers
+- Update Funktion (vorläufig) in launcher implementiert.
+- Settings beinhaltet nun eine option für die zeige passwort checkbox
+- Kleines Datenbank update , mehr folgt.
+- Forum installation in die Wege geleitet
+
+09.10.18 - 0.0.4
+- Launcher settings bug gefixed,
+- Launcher sollte jetzt nicht mehr die Settings Datei
+crashen
+- Website verschoben , Forum muss erneut installiert werden
+- Worldserver Datenbank cleaned muss erneut auf deutsch gepatched werden
+- News haben jetzt ein "-" pro newspunkt.
+- Zweiter Realm in erstellung für Developer
+- Diverse Bugs im Launcher gefixed
+- Launcher hat jetzt ein Menustrip anstelle von Buttons
+- Launcher geupdated , zeigt jetzt wieder News etc.
+- Realm 01 nutzt momentan MangOS , neuer Realm wird cMangOS nutzen
+- Neue (alte) Website installiert : 
+http://preparetofight.net/mw/ 
+im Style von Burning Crusade
+- Launcher ist jetzt TopMost
+- Wartezeit im Launcher bis zum AutoLogin auf von 5 auf 9 Sekunden angehoben
+
+
+
+28.02.18 - 0.0.3
+- Auto-Login im Launcher implementiert
+- Passwort mit Atom128 gesichert
+- Bugs im launcher behoben
+- Worldserver localizations resettet
+- GM Commands verursachen fast keine
+crashes mehr.
+- Website code gefixed.
+- Admin Password Reset erstellt.
+- User Password Recovery coding begonnen.
+
+
+25.01.18 - 0.0.2
+Anti AFK Tool veröffentlicht.
+(Erlaubt auf diesem Server)
+Launcher newsfenster hat jetzt scrollbars.
+Website jetzt voll Funktionsfähig.
+Website überarbeitet, neues Account
+Creation Script.
+Website zeigt jetzt detailierte Server infos
+und gebannte Accounts.
+Core neu kompiliert mit debug flags.
+(GM Ingame commands sollten nun weniger crashes 
+verursachen)
+Die WeltDatenbank ist nun fast 100% deutsch.
+Items NPCs und Texte sind nun auf deutsch.
+Launcher source code veröffentlicht.
+Forum eröffnet.
+
+
+24.01.18 - 0.0.1
+Erster release des launchers. 
+Version 0.0.1
+Website gelaunched.
+http://preparetofight.net
+Closed Alpha Phase gestartet. Account erstellung freigeschaltet.
+Testrealm 2.4.3 TBC gestartet.
+Backup VacantWoW eingespielt und gestartet.

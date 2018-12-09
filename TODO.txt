@@ -1,0 +1,27 @@
+﻿- Neue Funktion zum prüfen ob wow geladen wurde um dann erst den auto login zu starten 
+- UI Neu gestalten mit Design oder Files von Dustin
+- Multi Version support einbringen (1.12.1 2.4.3 3.3.5a 4.3.4 etc )
+- Multi Client support / Multi installationen support
+- Updater !
+- Bessere news darstellung per HTML embedded frames
+- Account passwort Tabelle per SQL lokal oder passwörter mit master pw schützen
+- Traffic encoden
+DONE - Feedback sender einbauen
+DONE - Bugtracker direkt im launcher einbauen
+- Settings in Registry speichern ?
+- Settings in Programm speichern ? Verschieben des launchers bedeutet keine settings mehr
+- WoW Auto Path finder einbauen ? wie ? Registry scanner ?
+- Anti AFK Tool in launcher einbauen ? Wie ? Download von externem tool ? Tool direkt in Launcher einbauen ?
+DONE - Option zum schliessen wenn Play geklickt wird einbauen ? In settings form einbauen ?
+- wow Client start parameter optionen einbauen ? http://wowwiki.wikia.com/wiki/List_of_Command-Line_Switches
+- 
+
+
+Features : 
+- Settings 
+- Encoded settings save
+- Auto Login to Gameaccount
+- Bugtracker Submit directly to server
+- Newsfeed
+- Updater
+- 
