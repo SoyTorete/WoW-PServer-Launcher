@@ -19,6 +19,18 @@ The Features are :
 - Game Client Downloader with progressbar and download speed etc
 - In DEVMODE see bug tracker tickets 
 
+
+
+INSTALLATION OF THE BACKEND AND SERVER SETUP:
+
+- You will need a mangos server for either 2.4.3 or 3.3.5a .
+- First upload the www folder contents to your WEBSERVER.
+- Configure "www\wow\files\launcher\cfg.php" 
+- Configure "www\wow\settings\cfg.php"
+- Configure "\Launcher\Classes\classVars.cs" <- The links etc are located here
+- If everything is set up correctly you can recompile the launcher and it should work.
+
+
 Thread = http://www.ac-web.org/forums/showthread.php?234784-C-Launcher-(GitHUB)-(Open-Source)
 
 ![Alt text](https://i.imgur.com/eOAaGRm.png " ")
