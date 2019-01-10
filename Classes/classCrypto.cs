@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -85,6 +86,93 @@ namespace PTFLauncher
                 return result.ToString();
             }
         }
+        public class Base64
+        {
+            public string Name { get { return "Base64"; } }
+
+            public static string Decode(string input)
+            {
+                return WebUtility.UrlDecode(Encoding.UTF8.GetString(Convert.FromBase64String(input)));
+            }
+
+            public static string Encode(string input)
+            {
+                return Convert.ToBase64String(Encoding.UTF8.GetBytes(WebUtility.UrlEncode(input)));
+            }
+        }
+        public class Lambda
+        {
+            static Func<string, int, string>
+            x = (f, n) => new string(f.Select<char, char>(c => (char)(c ^ n)).ToArray());
+
+            public static string Encode(string input, int salt)
+            {
+                return x(input, salt);
+            }
+        }
+        public class Reverse
+        {
+            public string Name { get { return "Reverse"; } }
+
+            public static string Decode(string input)
+            {
+                return string.Concat(input.Reverse());
+            }
+
+            public static string Encode(string input)
+            {
+                return string.Concat(input.Reverse());
+            }
+        }
+        public class ROT13
+        {
+            public string Name { get { return "ROT13"; } }
+
+            public static string Decode(string input)
+            {
+                return Run(input);
+            }
+
+            public static string Encode(string input)
+            {
+                return Run(input);
+            }
+
+            private static string Run(string value)
+            {
+                char[] array = value.ToCharArray();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    int number = (int)array[i];
+
+                    if (number >= 'a' && number <= 'z')
+                    {
+                        if (number > 'm')
+                        {
+                            number -= 13;
+                        }
+                        else
+                        {
+                            number += 13;
+                        }
+                    }
+                    else if (number >= 'A' && number <= 'Z')
+                    {
+                        if (number > 'M')
+                        {
+                            number -= 13;
+                        }
+                        else
+                        {
+                            number += 13;
+                        }
+                    }
+                    array[i] = (char)number;
+                }
+                return new string(array);
+            }
+        }
+
     }
     
 }

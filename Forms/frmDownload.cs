@@ -77,8 +77,8 @@ namespace PTFLauncher
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Möchtest du den 2.4.3 TBC Client herunterladen ? \n" +
-                "Der Download kann nicht angehalten werden , der Launcher wird beendet wenn du den Download stoppst!", "Download", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("Download WoW TBC 2.4.3 ? \n" +
+                "Downloading cannot be paused , you have to completely stop and restart the application.", "Download", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
                 this.BringToFront();
@@ -105,7 +105,7 @@ namespace PTFLauncher
 
                 try
                 {
-                    DownloadFile("dl.m1mk.de/private/wow_clients/tbc.zip", downloadfolder);
+                    DownloadFile(classVars.url_download_file, downloadfolder);
                     this.Text += " - " + downloadfolder;
                 }
                 catch (Exception eee)
@@ -154,7 +154,7 @@ namespace PTFLauncher
         private void button4_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Please click on the tbc.zip file which is wow 2.4.3 Burning Crusade.");
-            Process.Start("http://WEBSITE.net/private/wow_clients/");
+            Process.Start(classVars.url_download_folder);
         }
     }
 }

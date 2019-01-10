@@ -52,11 +52,11 @@ namespace PTFLauncher
             if(classVars.b_debug)
             {
                 //Debug mode is on
-                button1.Visible = true;
+                
             }
             else
             {
-                button1.Visible = false;
+               
             }
 
            // System.Threading.Thread.Sleep(1000);
@@ -77,6 +77,9 @@ namespace PTFLauncher
                     string rl                   = path.Replace("Wow.exe", "realmlist.wtf");
                     string realmlistPath        = rl;
                     string autoclear            = ini.Read("autoclear");
+                    string clientversion        = ini.Read("clVersion");
+                    classVars.cl_version        = clientversion;
+                    comboBox1.Text              = classVars.cl_version;
                     setPath                     = path;
                     s_show_pw                   = show_pw;
                     s_autologin                 = autologin;
@@ -135,7 +138,7 @@ namespace PTFLauncher
                         checkBox5.Checked = false;
                     }
                 }
-                catch { MessageBox.Show("Settings Datei gefunden , bitte Settings eintragen !"); }
+                catch { MessageBox.Show("Settings file found but empty"); }
             }
         }
         
@@ -168,6 +171,7 @@ namespace PTFLauncher
             string input            = textBox2.Text;
             string encoded          = Crypto.Atom128.Encode(input);
             var ini = new ini("settings.ini");
+            classVars.cl_version = comboBox1.Text;
             ini.Write("path", setPath);
             ini.Write("user", textBox1.Text);
             ini.Write("pass", encoded);
@@ -176,7 +180,8 @@ namespace PTFLauncher
             ini.Write("playandclose", s_playandclose);
             ini.Write("autologin", s_autologin);
             ini.Write("autoclear", s_autoclear);
-            MessageBox.Show("Settings gespeichert!");
+            ini.Write("clVersion", classVars.cl_version);
+            MessageBox.Show("Settings saved!");
             this.Close();//Do not forget haha
         }
 

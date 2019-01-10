@@ -30,13 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLauncher));
-            this.btnSettings = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
             this.lblServerStatus = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
-            this.lnkWebsite = new System.Windows.Forms.LinkLabel();
             this.txtNews = new System.Windows.Forms.TextBox();
-            this.btnClear = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.launcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,19 +61,10 @@
             this.lblOnlinePlayers = new System.Windows.Forms.Label();
             this.tmrPlayersOnline = new System.Windows.Forms.Timer(this.components);
             this.lblOnlinePlayersValue = new System.Windows.Forms.Label();
+            this.openClientFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Location = new System.Drawing.Point(294, 350);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(75, 23);
-            this.btnSettings.TabIndex = 0;
-            this.btnSettings.Text = "Settings";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Visible = false;
             // 
             // btnPlay
             // 
@@ -107,17 +95,6 @@
             this.lblVersion.Text = "-";
             this.lblVersion.Visible = false;
             // 
-            // lnkWebsite
-            // 
-            this.lnkWebsite.AutoSize = true;
-            this.lnkWebsite.Location = new System.Drawing.Point(207, 326);
-            this.lnkWebsite.Name = "lnkWebsite";
-            this.lnkWebsite.Size = new System.Drawing.Size(81, 13);
-            this.lnkWebsite.TabIndex = 4;
-            this.lnkWebsite.TabStop = true;
-            this.lnkWebsite.Text = "Create Account";
-            this.lnkWebsite.Visible = false;
-            // 
             // txtNews
             // 
             this.txtNews.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -129,16 +106,6 @@
             this.txtNews.Size = new System.Drawing.Size(438, 149);
             this.txtNews.TabIndex = 5;
             this.txtNews.Text = "test";
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(294, 321);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(75, 23);
-            this.btnClear.TabIndex = 6;
-            this.btnClear.Text = "Clear Cache";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Visible = false;
             // 
             // menuStrip1
             // 
@@ -168,23 +135,26 @@
             // 
             // updatesToolStripMenuItem
             // 
+            this.updatesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("updatesToolStripMenuItem.Image")));
             this.updatesToolStripMenuItem.Name = "updatesToolStripMenuItem";
-            this.updatesToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.updatesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.updatesToolStripMenuItem.Text = "Update";
             this.updatesToolStripMenuItem.Click += new System.EventHandler(this.updatesToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
+            this.hilfeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("hilfeToolStripMenuItem.Image")));
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
-            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.hilfeToolStripMenuItem.Text = "Hilfe";
+            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hilfeToolStripMenuItem.Text = "Help";
             this.hilfeToolStripMenuItem.Click += new System.EventHandler(this.hilfeToolStripMenuItem_Click);
             // 
             // überToolStripMenuItem
             // 
+            this.überToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("überToolStripMenuItem.Image")));
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
-            this.überToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.überToolStripMenuItem.Text = "Über";
+            this.überToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.überToolStripMenuItem.Text = "About";
             this.überToolStripMenuItem.Click += new System.EventHandler(this.überToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
@@ -194,15 +164,17 @@
             // 
             // exitToolStripMenuItem
             // 
+            this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // restartToolStripMenuItem1
             // 
+            this.restartToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("restartToolStripMenuItem1.Image")));
             this.restartToolStripMenuItem1.Name = "restartToolStripMenuItem1";
-            this.restartToolStripMenuItem1.Size = new System.Drawing.Size(112, 22);
+            this.restartToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.restartToolStripMenuItem1.Text = "Restart";
             this.restartToolStripMenuItem1.Click += new System.EventHandler(this.restartToolStripMenuItem1_Click);
             // 
@@ -213,43 +185,49 @@
             this.settingsToolStripMenuItem,
             this.createAccountToolStripMenuItem,
             this.bugtrackerToolStripMenuItem,
-            this.clientDownloadToolStripMenuItem});
+            this.clientDownloadToolStripMenuItem,
+            this.openClientFolderToolStripMenuItem});
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
             this.extrasToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.extrasToolStripMenuItem.Text = "Extras";
             // 
             // clearCacheToolStripMenuItem
             // 
+            this.clearCacheToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clearCacheToolStripMenuItem.Image")));
             this.clearCacheToolStripMenuItem.Name = "clearCacheToolStripMenuItem";
-            this.clearCacheToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.clearCacheToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.clearCacheToolStripMenuItem.Text = "Clear Cache";
             this.clearCacheToolStripMenuItem.Click += new System.EventHandler(this.clearCacheToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("settingsToolStripMenuItem.Image")));
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // createAccountToolStripMenuItem
             // 
+            this.createAccountToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("createAccountToolStripMenuItem.Image")));
             this.createAccountToolStripMenuItem.Name = "createAccountToolStripMenuItem";
-            this.createAccountToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.createAccountToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.createAccountToolStripMenuItem.Text = "Create Account";
             this.createAccountToolStripMenuItem.Click += new System.EventHandler(this.createAccountToolStripMenuItem_Click);
             // 
             // bugtrackerToolStripMenuItem
             // 
+            this.bugtrackerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("bugtrackerToolStripMenuItem.Image")));
             this.bugtrackerToolStripMenuItem.Name = "bugtrackerToolStripMenuItem";
-            this.bugtrackerToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.bugtrackerToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.bugtrackerToolStripMenuItem.Text = "Bugtracker";
             this.bugtrackerToolStripMenuItem.Click += new System.EventHandler(this.bugtrackerToolStripMenuItem_Click);
             // 
             // clientDownloadToolStripMenuItem
             // 
+            this.clientDownloadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clientDownloadToolStripMenuItem.Image")));
             this.clientDownloadToolStripMenuItem.Name = "clientDownloadToolStripMenuItem";
-            this.clientDownloadToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.clientDownloadToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.clientDownloadToolStripMenuItem.Text = "Client Download";
             this.clientDownloadToolStripMenuItem.Click += new System.EventHandler(this.clientDownloadToolStripMenuItem_Click);
             // 
@@ -304,8 +282,9 @@
             // dOWNLOADUPDATEToolStripMenuItem
             // 
             this.dOWNLOADUPDATEToolStripMenuItem.ForeColor = System.Drawing.Color.Red;
+            this.dOWNLOADUPDATEToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("dOWNLOADUPDATEToolStripMenuItem.Image")));
             this.dOWNLOADUPDATEToolStripMenuItem.Name = "dOWNLOADUPDATEToolStripMenuItem";
-            this.dOWNLOADUPDATEToolStripMenuItem.Size = new System.Drawing.Size(133, 20);
+            this.dOWNLOADUPDATEToolStripMenuItem.Size = new System.Drawing.Size(149, 20);
             this.dOWNLOADUPDATEToolStripMenuItem.Text = "DOWNLOAD UPDATE";
             this.dOWNLOADUPDATEToolStripMenuItem.Visible = false;
             this.dOWNLOADUPDATEToolStripMenuItem.Click += new System.EventHandler(this.dOWNLOADUPDATEToolStripMenuItem_Click);
@@ -354,6 +333,7 @@
             // 
             this.tmrPlayersOnline.Enabled = true;
             this.tmrPlayersOnline.Interval = 5000;
+            this.tmrPlayersOnline.Tick += new System.EventHandler(this.tmrPlayersOnline_Tick);
             // 
             // lblOnlinePlayersValue
             // 
@@ -364,6 +344,14 @@
             this.lblOnlinePlayersValue.TabIndex = 11;
             this.lblOnlinePlayersValue.Text = "-";
             // 
+            // openClientFolderToolStripMenuItem
+            // 
+            this.openClientFolderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openClientFolderToolStripMenuItem.Image")));
+            this.openClientFolderToolStripMenuItem.Name = "openClientFolderToolStripMenuItem";
+            this.openClientFolderToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.openClientFolderToolStripMenuItem.Text = "Open Client Folder";
+            this.openClientFolderToolStripMenuItem.Click += new System.EventHandler(this.openClientFolderToolStripMenuItem_Click);
+            // 
             // frmLauncher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -372,13 +360,10 @@
             this.Controls.Add(this.lblOnlinePlayersValue);
             this.Controls.Add(this.lblOnlinePlayers);
             this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.txtNews);
-            this.Controls.Add(this.lnkWebsite);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblServerStatus);
             this.Controls.Add(this.btnPlay);
-            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -398,14 +383,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Label lblServerStatus;
         private System.Windows.Forms.Label lblVersion;
-        private System.Windows.Forms.LinkLabel lnkWebsite;
         private System.Windows.Forms.TextBox txtNews;
-        private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem launcherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updatesToolStripMenuItem;
@@ -433,6 +414,7 @@
         private System.Windows.Forms.Label lblOnlinePlayers;
         private System.Windows.Forms.Timer tmrPlayersOnline;
         private System.Windows.Forms.Label lblOnlinePlayersValue;
+        private System.Windows.Forms.ToolStripMenuItem openClientFolderToolStripMenuItem;
     }
 }
 

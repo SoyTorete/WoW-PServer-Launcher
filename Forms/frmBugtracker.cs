@@ -44,16 +44,16 @@ namespace PTFLauncher
                     //s1 = System.Text.Encoding.UTF8.GetString(result, 0, result.Length);
                     //File.Delete(path);
                 }//Error handling
-                catch  { MessageBox.Show("Da ist etwas schief gegangen.. Probier es bitte erneut."); }
+                catch  { MessageBox.Show("Something went wrong, please try again later"); }
                 //Success!
-                MessageBox.Show("Vielen Dank für deine Mithilfe! " +
+                MessageBox.Show("Thank you for your help! " +
                     "\n" +
-                    "Ein Gamemaster wird sich jetzt um dein Problen kümmern.");
+                    "A gamemaster will take care now");
                 this.Close();//Back to biz
             }
             else
             {
-                MessageBox.Show("Bitte fülle alle Felder aus.");
+                MessageBox.Show("Please fill in all fields.");
             }
         }
 

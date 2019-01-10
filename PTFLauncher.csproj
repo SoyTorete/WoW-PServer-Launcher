@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Classes\classCrypto.cs" />
     <Compile Include="Classes\classNetworking.cs" />
+    <Compile Include="Classes\classPatcher.cs" />
     <Compile Include="Classes\classVars.cs" />
     <Compile Include="Forms\frmAbout.cs">
       <SubType>Form</SubType>

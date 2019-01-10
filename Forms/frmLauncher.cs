@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Net;
-using System.Net.Sockets;
 using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -20,89 +19,22 @@ namespace PTFLauncher
 
         private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
         
-        public static bool updateAvailable()
-        {   
-            //Check if theres a update on the server
-            try
-            {   //Init 
-                WebClient wc = new WebClient();
-                //Get server version (latest launcher version)
-                string s = wc.DownloadString(classVars.url_version);
-                //Set local version
-                string s2 = classVars.appversion;
-                classVars.version_server = s;//Store latest version in memory
-
-                if (s != s2)//Compare the versions
-                {
-                    //Process our version variables to actual int numbers
-                    int i = Convert.ToInt32(s.Replace(".", ""));
-                    int i2 = Convert.ToInt32(s2.Replace(".", ""));
-                    //When the server version is actually GREATER than our version
-                    if (i > i2)
-                    {
-                        //Theres a higher version available
-                        return true;
-                    }
-                    //When the versions are not equal BUT NOT GREATER
-                    return false;
-                }
-                //Return fail anyways
-                return false;
-            }
-            catch
-            {
-                //Failsafe!
-                return false;
-            }
-        }
-
-        public static bool checkConnection()
-        {   
-            //Outsourced to php scripts .. bug with ISP
-            //TcpClient tc = new TcpClient();
-            //try
-            //{
-            //    tc.Connect(ip_worldserver, port_worldserver);
-            //    bool stat = tc.Connected;
-            //    if (stat)
-            //        return true;
-
-            //    tc.Close();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //    return false;
-            //}
-            //tc.Close();
-            //return false;
-
-            WebClient wc = new WebClient();
-            try
-            {
-                wc.DownloadString(classVars.url_s_online);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         public void LoadSettings()
         {
             if (!File.Exists(Application.StartupPath + "\\settings.ini"))
             {
                 var myFile = File.Create(Application.StartupPath + "\\settings.ini");
                 myFile.Close();
-                MessageBox.Show("Bitte Öffne die Launcher Einstellungen und konfiguriere einmalig deinen Launcher");
+                MessageBox.Show("Please setup your launcher now!");
+                frmSettings sf = new frmSettings();
+                sf.Show();
             }
             else if (File.Exists(Application.StartupPath + "\\settings.ini"))
             {
                 string read;
                 read = File.ReadAllText(Application.StartupPath + "\\settings.ini");
                 if (read == null)
-                    MessageBox.Show("Settings sind noch nicht eingerichtet !");
+                    MessageBox.Show("Settings not ready yet");
             }
 
             //Calling ini class and load settings into the memory
@@ -116,6 +48,8 @@ namespace PTFLauncher
             string autologin = ini.Read("autologin");
             string decoded = Crypto.Atom128.Decode(pass);
             pass = decoded;
+            string clientversion = ini.Read("clVersion");
+            classVars.cl_version = clientversion;
             classVars.s_autologin = autologin;
             classVars.s_path = path;
             classVars.s_user = user;
@@ -127,31 +61,6 @@ namespace PTFLauncher
 
         public void updateServerStatus()
         {   
-            //This supposed to work for some time but then 
-            //suddenly stopped.. i dont know why maybe its a ISP problem
-
-            // TcpClient tc = new TcpClient();
-            // try
-            // {
-            //     tc.Connect(ip_worldserver, port_worldserver);
-            //     bool stat = tc.Connected;
-            //     if (stat)
-            //         //MessageBox.Show("Connectivity to server available.");
-            //         lblServerStatus.Text = "Worldserver is online";
-
-            //     tc.Close();
-            // }
-            // catch (Exception ex)
-            // {
-            //     MessageBox.Show(ex.ToString());
-            //     //MessageBox.Show("Not able to connect : " + ex.Message);
-            //     lblServerStatus.Text = "Worldserver is offline";
-            //     tc.Close();
-            // }
-            //// System.Threading.Thread.Sleep(5000);
-            ///
-            //Working but requires php scritp.. Above works without a script (worked)
-
             WebClient wc = new WebClient();
             string result = wc.DownloadString(classVars.url_base + "wow/files/launcher/s_online.php");
             if (result == "online")
@@ -172,7 +81,8 @@ namespace PTFLauncher
 
             linkLabel1.Visible = false;//Update Available label
             this.TopMost = true;// Always stay in front 
-            bool connection = checkConnection();//Use 
+            bool connection = classNetworking.checkConnection();//Use 
+            
 
             try
             {
@@ -195,7 +105,7 @@ namespace PTFLauncher
                 {
                     updateServerStatus();
                     lblVersion.Text = classVars.appversion;
-                    bool b = updateAvailable();//Fill the bool "b" with a true or false from method
+                    bool b = classNetworking.updateAvailable();//Fill the bool "b" with a true or false from method
 
                     if (b && classVars.s_update_checks == "true")//Test if the bool is true
                     {
@@ -231,7 +141,6 @@ namespace PTFLauncher
 
         private void frmLauncher_Load(object sender, EventArgs e)
         {
-
             try
             {
                 InitLauncher();
@@ -239,7 +148,6 @@ namespace PTFLauncher
             }
             catch
             {
-                //MessageBox.Show("Set up the launcher please");
                 classVars.b_settingsneeded = true;
                 MessageBox.Show("Something happened while loading the launcher.. You may encounter bugs , please restart your launcher.");
 
@@ -253,8 +161,23 @@ namespace PTFLauncher
                 var ini = new ini("settings.ini");
                 string path = ini.Read("path");
                 string autoclean = ini.Read("autoclear");
-                //Set realmlist 
-                File.WriteAllText(classVars.s_path.Replace("Wow.exe", "realmlist.wtf"), "set realmlist preparetofight.net");
+                LoadSettings();
+
+                //PATCH REALMLIST
+                try
+                {
+                    //Process client patch version and set realmlist
+                    int i = Convert.ToInt32(classVars.cl_version.Replace(".", ""));
+                    //MessageBox.Show(i.ToString());
+                    //Set
+                    classPatcher.PatchRealmlist(i);
+                }
+                catch(Exception re)
+                {
+                    MessageBox.Show(re.ToString());
+                }
+                
+
                 if (lblServerStatus.ForeColor == System.Drawing.Color.Red)
                 {
                     MessageBox.Show("The worldserver seems to be offline , please check back later..");
@@ -282,36 +205,39 @@ namespace PTFLauncher
                     MessageBox.Show("Cannot launch game , update your settings please.");
                 }
                 else if (classVars.s_autologin == "true")
+                    //AUTOLOGIN START
                 {
                     //CREDITS TO Asandru!
-                    Process process = Process.Start(classVars.s_path);
-                    while (!process.WaitForInputIdle())
+                    Process proc = Process.Start(classVars.s_path);
+
+                    while (!proc.WaitForInputIdle())
                     {
                         System.Threading.Thread.Sleep(3000);
                     }
                     
                     string u = classVars.s_user;
+                    System.Threading.Thread.Sleep(1000);
                     string p = classVars.s_pass;
 
                     foreach (char accNameLetter in u)
                     {
-                        SendMessage(process.MainWindowHandle, classVars.WM_CHAR, new IntPtr(accNameLetter), IntPtr.Zero);
+                        SendMessage(proc.MainWindowHandle, classVars.WM_CHAR, new IntPtr(accNameLetter), IntPtr.Zero);
                         System.Threading.Thread.Sleep(100);
                     }
 
                     //! Switch to password field
-                    SendMessage(process.MainWindowHandle, classVars.WM_KEYUP, new IntPtr(classVars.VK_TAB), IntPtr.Zero);
-                    SendMessage(process.MainWindowHandle, classVars.WM_KEYDOWN, new IntPtr(classVars.VK_TAB), IntPtr.Zero);
+                    SendMessage(proc.MainWindowHandle, classVars.WM_KEYUP, new IntPtr(classVars.VK_TAB), IntPtr.Zero);
+                    SendMessage(proc.MainWindowHandle, classVars.WM_KEYDOWN, new IntPtr(classVars.VK_TAB), IntPtr.Zero);
 
                     foreach (char accPassLetter in p)
                     {
-                        SendMessage(process.MainWindowHandle, classVars.WM_CHAR, new IntPtr(accPassLetter), IntPtr.Zero);
+                        SendMessage(proc.MainWindowHandle, classVars.WM_CHAR, new IntPtr(accPassLetter), IntPtr.Zero);
                         System.Threading.Thread.Sleep(100);
                     }
 
                     //! Login to account
-                    SendMessage(process.MainWindowHandle, classVars.WM_KEYUP, new IntPtr(classVars.VK_RETURN), IntPtr.Zero);
-                    SendMessage(process.MainWindowHandle, classVars.WM_KEYDOWN, new IntPtr(classVars.VK_RETURN), IntPtr.Zero);
+                    SendMessage(proc.MainWindowHandle, classVars.WM_KEYUP, new IntPtr(classVars.VK_RETURN), IntPtr.Zero);
+                    SendMessage(proc.MainWindowHandle, classVars.WM_KEYDOWN, new IntPtr(classVars.VK_RETURN), IntPtr.Zero);
 
                 }
                 if (classVars.s_playandclose == "true")
@@ -361,6 +287,17 @@ namespace PTFLauncher
 
         }
 
+        public void GetUpdate()
+        {
+            //bool b = updateAvailable();
+            //if (b && classVars.s_update_checks == "true")
+            //{
+            //    string temp = "C:\\users\\public\\temp\\latestLauncher\\PTFLauncher.exe";
+            //    WebClient wc = new WebClient();
+            //    wc.DownloadFile(classVars.url_update, temp);
+            //}
+        }
+
         private void createAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmBrowser caf = new frmBrowser(classVars.url_base + "wow/pages/register.php");
@@ -385,18 +322,25 @@ namespace PTFLauncher
 
         private void updatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            bool b = updateAvailable();
-            if (b)
+            if(classVars.b_devUpdate)
             {
-                MessageBox.Show("Update found!" + " - version: " + classVars.version_server + " - Please download and install the update now.");
-                linkLabel1.Visible = true;
-                dOWNLOADUPDATEToolStripMenuItem.Visible = true;
+                MessageBox.Show("Hey ! You are using a DEVELOPMENT BUILD ! Your version is newer than the version on the server. Nothing to update here.");
             }
             else
             {
-                MessageBox.Show("No update found - your version is the latest public version.");
-                linkLabel1.Visible = false;
-                dOWNLOADUPDATEToolStripMenuItem.Visible = false;
+                bool b = classNetworking.updateAvailable();
+                if (b)
+                {
+                    MessageBox.Show("Update found!" + " - version: " + classVars.version_server + " - Please download and install the update now.");
+                    linkLabel1.Visible = true;
+                    dOWNLOADUPDATEToolStripMenuItem.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("No update found - your version is the latest public version.");
+                    linkLabel1.Visible = false;
+                    dOWNLOADUPDATEToolStripMenuItem.Visible = false;
+                }
             }
         }
 
@@ -464,11 +408,10 @@ namespace PTFLauncher
 
         public void updatePlayersOnline()
         {
-
             WebClient onlinePlayers = new WebClient();
             string op = onlinePlayers.DownloadString(classVars.url_s_players);
             lblOnlinePlayers.Text = "Players online: ";
-            string s = op.Remove(0,2);//Hack to display the corrent format
+            string s = op.Remove(0,2);//Hack to display the corrent format because PHP fucked it up
             lblOnlinePlayersValue.Text = s;
         }
 
@@ -476,6 +419,25 @@ namespace PTFLauncher
         {
             updateServerStatus();
             updatePlayersOnline();
+        }
+
+        private void tmrPlayersOnline_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openClientFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string clPath = classVars.s_path;
+                Process.Start(clPath.Replace("Wow.exe", ""));
+            }
+            catch
+            {
+                MessageBox.Show("Could not open your client folder. Maybe it does not exist or the path was not set correctly in the settings.");
+            }
+            
         }
     }
 
