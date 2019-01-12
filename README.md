@@ -1,4 +1,4 @@
-# WoW-PServer-Launcher (v0.0.92)
+# WoW-PServer-Launcher (v0.0.93)
 A launcher i wrote for a side fun project. Currently has every basic feature such as autologin, cache clear, realmist patches etc etc.
 
 The Features are : 
@@ -18,7 +18,9 @@ The Features are :
 - Create Account from launcher
 - Game Client Downloader with progressbar and download speed etc
 - In DEVMODE see bug tracker tickets 
-
+- Icons !
+- Bugtracker with attatchment support
+- 
 
 
 INSTALLATION OF THE BACKEND AND SERVER SETUP:
