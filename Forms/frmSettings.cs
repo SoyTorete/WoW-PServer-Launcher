@@ -24,10 +24,10 @@ namespace PTFLauncher
         public static string realmlistPath;
         public static string username;
         public static string password;
-        public static string s_show_pw          = "false";//Default is false 
-        public static string s_update_checks    = "false";//Default is true 
-        public static string s_playandclose     = "false";//Default is true
-        public static string s_autologin        = "false";//Default is false 
+        public static string s_show_pw          = "false";
+        public static string s_update_checks    = "false";
+        public static string s_playandclose     = "false";
+        public static string s_autologin        = "false";
         public static string s_autoclear        = "true";
 
 
@@ -51,15 +51,13 @@ namespace PTFLauncher
         {
             if(classVars.b_debug)
             {
-                //Debug mode is on
                 
             }
             else
             {
                
             }
-
-           // System.Threading.Thread.Sleep(1000);
+            
             this.TopMost = true;
 
             if(File.Exists(Application.StartupPath + "\\settings.ini"))
@@ -86,7 +84,6 @@ namespace PTFLauncher
                     s_update_checks             = update_checks;
                     s_playandclose              = playandclose;
                     s_autoclear                 = autoclear;
-                    //! Crypto used to store / read the password
                     string input                = pass;
                     string decoded              = Crypto.Atom128.Decode(pass);
                     pass                        = decoded;
@@ -94,8 +91,7 @@ namespace PTFLauncher
                     txtPath.Text                = path;
                     textBox1.Text               = user;
                     textBox2.Text               = pass;
-
-                    //Here we set the visual items to match the settings
+                    
 
                     if (s_show_pw == "true")
                     {
@@ -168,6 +164,7 @@ namespace PTFLauncher
             {
                 s_autoclear = "false";
             }
+
             string input            = textBox2.Text;
             string encoded          = Crypto.Atom128.Encode(input);
             var ini = new ini("settings.ini");
@@ -181,13 +178,13 @@ namespace PTFLauncher
             ini.Write("autologin", s_autologin);
             ini.Write("autoclear", s_autoclear);
             ini.Write("clVersion", classVars.cl_version);
+
             MessageBox.Show("Settings saved!");
-            this.Close();//Do not forget haha
+            this.Close();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            //Check and replace password chars used (either hidden or clear)
             if (checkBox1.Checked)
                 textBox2.PasswordChar = char.Parse("\0");
             else

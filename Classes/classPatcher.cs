@@ -40,7 +40,7 @@ namespace PTFLauncher
                 case 434:
                     try
                     {
-                        //TODO
+                       
                     }
                     catch
                     {
@@ -50,7 +50,7 @@ namespace PTFLauncher
                 case 510:
                     try
                     {
-                        //TODO
+                        
                     }
                     catch
                     {
@@ -60,7 +60,7 @@ namespace PTFLauncher
                 case 710:
                     try
                     {
-                        //TODO
+                        
                     }
                     catch
                     {
@@ -68,10 +68,9 @@ namespace PTFLauncher
                     }
                     break;
                 default:
-                    //243 !
                     try
                     {
-                        //TODO
+                        File.WriteAllText(classVars.s_path.Replace("Wow.exe", "realmlist.wtf"), classVars.s_realmlistFullContent);
                     }
                     catch
                     {

@@ -9,12 +9,11 @@ namespace PTFLauncher
 {
     public partial class frmLauncher : Form
     {
-        public frmLauncher(string arg1, string arg2)//Handle input args
+        public frmLauncher(string arg1, string arg2)
         {
             InitializeComponent();
         }
         
-        //Required import for the auto login keysends
         [DllImport("user32.dll")]
 
         private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
@@ -36,9 +35,8 @@ namespace PTFLauncher
                 if (read == null)
                     MessageBox.Show("Settings not ready yet");
             }
-
-            //Calling ini class and load settings into the memory
-            var    ini = new ini("settings.ini");
+            
+            var ini = new ini("settings.ini");
             string path = ini.Read("path");
             string user = ini.Read("user");
             string pass = ini.Read("pass");
@@ -76,21 +74,21 @@ namespace PTFLauncher
 
         }
 
-        public void InitLauncher()//Set Up needed stuff and prepare everything
+        public void InitLauncher()
         {
 
-            linkLabel1.Visible = false;//Update Available label
-            this.TopMost = true;// Always stay in front 
-            bool connection = classNetworking.checkConnection();//Use 
+            linkLabel1.Visible = false;
+            this.TopMost = true;
+            bool connection = classNetworking.checkConnection();
             
 
             try
             {
-                LoadSettings();//Guess what
+                LoadSettings();
             }
             catch
             {
-                /*MessageBox.Show("Settings error 1 ");*/
+               
             }
             this.Text += " " + classVars.appversion;
 
@@ -105,12 +103,12 @@ namespace PTFLauncher
                 {
                     updateServerStatus();
                     lblVersion.Text = classVars.appversion;
-                    bool b = classNetworking.updateAvailable();//Fill the bool "b" with a true or false from method
+                    bool b = classNetworking.updateAvailable();
 
-                    if (b && classVars.s_update_checks == "true")//Test if the bool is true
+                    if (b && classVars.s_update_checks == "true")
                     {
                         MessageBox.Show("we have a new update !");
-                        linkLabel1.Visible = true;//show the update notification
+                        linkLabel1.Visible = true;
                     }
 
                     WebClient newsstream = new WebClient();
@@ -163,13 +161,9 @@ namespace PTFLauncher
                 string autoclean = ini.Read("autoclear");
                 LoadSettings();
 
-                //PATCH REALMLIST
                 try
                 {
-                    //Process client patch version and set realmlist
                     int i = Convert.ToInt32(classVars.cl_version.Replace(".", ""));
-                    //MessageBox.Show(i.ToString());
-                    //Set
                     classPatcher.PatchRealmlist(i);
                 }
                 catch(Exception re)
@@ -188,14 +182,13 @@ namespace PTFLauncher
                     try
                     {
                         Directory.Delete(path.Replace("Wow.exe", "") + "Cache", true);
-                        //MessageBox.Show("Cache deleted.");
                     }
                     catch
                     {
-                        // Cache is empty
+
                     }
                 }
-                if (classVars.s_autologin == "false")//Basically start game without login
+                if (classVars.s_autologin == "false")
                 {
                     Process.Start(classVars.s_path);
                 }
@@ -205,18 +198,16 @@ namespace PTFLauncher
                     MessageBox.Show("Cannot launch game , update your settings please.");
                 }
                 else if (classVars.s_autologin == "true")
-                    //AUTOLOGIN START
                 {
-                    //CREDITS TO Asandru!
                     Process proc = Process.Start(classVars.s_path);
 
                     while (!proc.WaitForInputIdle())
                     {
-                        System.Threading.Thread.Sleep(3000);
+                        System.Threading.Thread.Sleep(4000);
                     }
                     
                     string u = classVars.s_user;
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(2000);
                     string p = classVars.s_pass;
 
                     foreach (char accNameLetter in u)
@@ -224,8 +215,7 @@ namespace PTFLauncher
                         SendMessage(proc.MainWindowHandle, classVars.WM_CHAR, new IntPtr(accNameLetter), IntPtr.Zero);
                         System.Threading.Thread.Sleep(100);
                     }
-
-                    //! Switch to password field
+                    
                     SendMessage(proc.MainWindowHandle, classVars.WM_KEYUP, new IntPtr(classVars.VK_TAB), IntPtr.Zero);
                     SendMessage(proc.MainWindowHandle, classVars.WM_KEYDOWN, new IntPtr(classVars.VK_TAB), IntPtr.Zero);
 
@@ -234,8 +224,7 @@ namespace PTFLauncher
                         SendMessage(proc.MainWindowHandle, classVars.WM_CHAR, new IntPtr(accPassLetter), IntPtr.Zero);
                         System.Threading.Thread.Sleep(100);
                     }
-
-                    //! Login to account
+                    
                     SendMessage(proc.MainWindowHandle, classVars.WM_KEYUP, new IntPtr(classVars.VK_RETURN), IntPtr.Zero);
                     SendMessage(proc.MainWindowHandle, classVars.WM_KEYDOWN, new IntPtr(classVars.VK_RETURN), IntPtr.Zero);
 
@@ -277,11 +266,10 @@ namespace PTFLauncher
                 try
                 {
                     Directory.Delete(path.Replace("Wow.exe", "") + "Cache", true);
-                    //MessageBox.Show("Cache deleted.");
                 }
                 catch
                 {
-                    //Cache is already cleared
+                  
                 }
             }
 
@@ -411,7 +399,7 @@ namespace PTFLauncher
             WebClient onlinePlayers = new WebClient();
             string op = onlinePlayers.DownloadString(classVars.url_s_players);
             lblOnlinePlayers.Text = "Players online: ";
-            string s = op.Remove(0,2);//Hack to display the corrent format because PHP fucked it up
+            string s = op.Remove(0,2);
             lblOnlinePlayersValue.Text = s;
         }
 
